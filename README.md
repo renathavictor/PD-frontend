@@ -1,1 +1,1 @@
-# Frontend do Projeto da disciplina Sistemas Distribuídos
+# Frontend do Projeto da disciplina Programação Distribuída
