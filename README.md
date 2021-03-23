@@ -1,1 +1,1 @@
-# SD-frontend
+# Frontend do Projeto da disciplina Sistemas Distribuídos
