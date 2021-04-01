@@ -2,7 +2,7 @@
 
 ## Frontend
 
-### Technologies
+### Tech Stack
 
 * [ReactJS](https://github.com/facebook/react/)
 * [NextJS](https://github.com/vercel/next.js)
