@@ -29,9 +29,11 @@ const NavStyles = styled.ul`
     &:before {
       content: '';
       width: 2px;
+      background: var(--lightGrey);
       height: 100%;
       left: 0;
       position: absolute;
+      transform: skew(-20deg);
       top: 0;
       bottom: 0;
     }
@@ -53,22 +55,17 @@ const NavStyles = styled.ul`
       &:after {
         width: calc(100% - 60px);
       }
-    @media (max-width: 700px) {
+      @media (max-width: 700px) {
         width: calc(100% - 10px);
-    }
+      }
     }
   }
   @media (max-width: 1300px) {
-    border-top: 1px solid ${props => props.theme.lightgrey};
+    border-top: 1px solid var(--lightGrey);
     width: 100%;
     justify-content: center;
     font-size: 1.5rem;
   }
-  @media (max-width: 700px) {
-    .hide-sm {
-      display: none;
-    }
-  }
-`;
+`
 
-export default NavStyles;
+export default NavStyles

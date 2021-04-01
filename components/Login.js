@@ -9,7 +9,7 @@ import Form from './styles/Form'
 const Login = () => {
   const alertContext = useContext(AlertContext) || {}
   const authContext = useContext(AuthContext) || {}
-  console.log(' alert context ', alertContext)
+
   const { setAlert } = alertContext
   const { login, error, clearErrors, isAuthenticated } = authContext
 
