@@ -18,7 +18,7 @@ const NavStyles = styled.ul`
     position: relative;
     text-transform: uppercase;
     font-weight: 900;
-    font-size: 1em;
+    font-size: 0.8em;
     background: none;
     border: 0;
     cursor: pointer;
@@ -29,11 +29,9 @@ const NavStyles = styled.ul`
     &:before {
       content: '';
       width: 2px;
-      background: ${props => props.theme.lightgrey};
       height: 100%;
       left: 0;
       position: absolute;
-      transform: skew(-20deg);
       top: 0;
       bottom: 0;
     }

@@ -66,7 +66,7 @@ const Form = styled.form`
   fieldset {
     border: 0;
     padding: 0;
-
+    margin: 2rem 3rem;
     &[disabled] {
       opacity: 0.5;
     }
@@ -84,6 +84,9 @@ const Form = styled.form`
   @media(max-width: 750px) {
     width: 225px;
     padding: 0.2rem;
+    fieldset {
+      margin: 0.5;
+    }
 
     button {
       font-size: 1.5rem;
