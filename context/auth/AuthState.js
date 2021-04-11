@@ -17,8 +17,8 @@ import {
 
 const AuthState = props => {
   const initialState = {
-    user: null,
-    token: typeof window === 'undefined' ? null : localStorage.getItem('token'),
+    user: typeof window === 'undefined' ? null : localStorage.getItem('user'),
+    credentials: typeof window === 'undefined' ? null : localStorage.getItem('credentials'),
     isAuthenticated: null,
     loading: true,
     error: null
@@ -27,15 +27,13 @@ const AuthState = props => {
   const [state, dispatch] = useReducer(authReducer, initialState)
   //  load user
   const loadUser = async () => {
-    setAuthToken(localStorage.token)
-
-    try {
-      const res = await api.get('/auth')
+    if (localStorage.credentials) {
+      setAuthToken(localStorage.credentials)
       dispatch({
         type: USER_LOADED,
-        payload: res.data
+        payload: { credentials: localStorage.credentials, user: localStorage.user}
       })
-    } catch (error) {
+    } else {
       dispatch({ type: AUTH_ERROR })
     }
   }
@@ -43,9 +41,7 @@ const AuthState = props => {
   // register user
   const register = async formData => {
     try {
-      console.log('formdata ', formData)
-      const res = { data: '123456' }
-      // const res = await api.post('/users/signup', formData)
+      const res = await api.post('/sign_up', formData)
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data
@@ -63,7 +59,7 @@ const AuthState = props => {
 
   const login = async formData => {
     try {
-      const res = await api.post('/auth/login', formData)
+      const res = await api.post('/sign_in', formData)
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
@@ -87,7 +83,7 @@ const AuthState = props => {
   return (
     <AuthContext.Provider
       value={{
-        token: state.token,
+        credentials: state.credentials,
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,
         user: state.user,

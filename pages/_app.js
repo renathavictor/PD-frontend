@@ -13,7 +13,7 @@ class MyApp extends App {
     let pageProps = {}
 
     if (typeof window !== 'undefined' && localStorage) {
-      localStorage.token && setAuthToken(localStorage.token)
+      localStorage.credentials && setAuthToken(localStorage.credentials)
     }
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)

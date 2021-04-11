@@ -19,13 +19,13 @@ const ErrorStyles = styled.div`
 `
 
 const DisplayError = ({ error }) => {
-  if (!error || !error.message) return null
+  if (!error || !error.error) return null
   if (error.networkError && error.networkError.result && error.networkError.result.errors.length) {
     return error.networkError.result.errors.map((error, i) => (
       <ErrorStyles key={i}>
         <p>
           <strong>Ops!</strong>
-          {error.message.replace('Error: ', '')}
+          {error.error.replace('Error: ', '')}
         </p>
       </ErrorStyles>
     ))
@@ -34,7 +34,7 @@ const DisplayError = ({ error }) => {
     <ErrorStyles>
       <p>
         <strong>Ops!</strong>
-        {error.message.replace('Error: ', '')}
+        {error.error.replace('Error: ', '')}
       </p>
     </ErrorStyles>
   )

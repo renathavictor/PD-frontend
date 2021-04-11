@@ -16,11 +16,15 @@ const authReducer = (state, action) => {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: action.payload
+        user: JSON.parse(action.payload.user),
+        credentials: JSON.parse(action.payload.credentials)
       }
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', action.payload.auth_token)
+      const credentials = JSON.stringify({ token: action.payload?.data?.user?.authentication_token, email: action.payload?.data?.user?.email })
+      const user = JSON.stringify({ user: action.payload?.data?.user })
+      localStorage.setItem('credentials', credentials)
+      localStorage.setItem('user', user)
       return {
         ...state,
         ...action.payload,
@@ -31,10 +35,11 @@ const authReducer = (state, action) => {
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
-      localStorage.removeItem('token')
+      localStorage.removeItem('credentials')
+      localStorage.removeItem('user')
       return {
         ...state,
-        token: null,
+        credentials: null,
         isAuthenticated: false,
         loading: false,
         user: null,

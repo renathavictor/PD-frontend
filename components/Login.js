@@ -2,6 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 import Router from 'next/router'
 import Link from 'next/link'
 
+// import IconButton from '@material-ui/core/IconButton'
+// import Visibility from '@material-ui/icons/Visibility'
+// import VisibilityOff from '@material-ui/icons/VisibilityOff'
+
 import AlertContext from '../context/alert/alertContext'
 import AuthContext from '../context/auth/authContext'
 import Form from './styles/Form'
@@ -18,7 +22,7 @@ const Login = () => {
       Router.push('/')
     }
 
-    if (error && error.message.match(/Invalid credentials/)) {
+    if (error && error.error?.match(/Invalid credentials/)) {
       setAlert('Credencial inválida', 'danger')
       clearErrors()
     }
@@ -29,6 +33,7 @@ const Login = () => {
     password: ''
   })
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const { email, password } = user
 
@@ -39,11 +44,20 @@ const Login = () => {
     if (email === '' || password === '') {
       setAlert('Por favor, digite todos com campos', 'danger')
     } else {
-      login({
+      login({ user: {
         email,
         password
+      }
       })
     }
+  }
+
+  const handleClickShowPassword = () => {
+    setShowPassword(prevState => !prevState)
+  }
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault()
   }
 
   return (
@@ -67,11 +81,20 @@ const Login = () => {
             Password
             <input
               type="password"
+              // type={showPassword ? 'text' : 'password'}
               name="password"
               placeholder="Digite uma senha"
               value={password}
               onChange={onChange}
             />
+          {/* <IconButton
+            aria-label="toggle password visibility"
+            onClick={handleClickShowPassword}
+            onMouseDown={handleMouseDownPassword}
+            edge="end"
+          >
+            {showPassword ? <Visibility /> : <VisibilityOff />}
+          </IconButton> */}
           </label>
           <div style={{
             display: 'flex',

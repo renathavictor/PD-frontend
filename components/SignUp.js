@@ -17,8 +17,8 @@ const SignUp = () => {
     if (isAuthenticated) {
       Router.push('/')
     }
-    if (error && error.message) {
-      setAlert(error.message, 'danger')
+    if (error && error.error) {
+      setAlert(error.error, 'danger')
       clearErrors()
     }
   }, [error, isAuthenticated])
