@@ -101,7 +101,7 @@ const Login = () => {
             justifyContent: 'space-between',
             marginTop: '2.5rem'
           }}>
-            <Link href='/registrar'>
+            <Link href='/register'>
               <a>Create account</a>
             </Link>
             <button type="submit">Login</button>

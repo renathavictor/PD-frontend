@@ -12,7 +12,12 @@ const loading = keyframes`
   }
 `;
 
-const Form = styled.form`
+export const ErrorMessage = styled.div`
+  color: ${props => props.theme.danger};
+  font-size: 12px;
+`
+
+const FormContainer = styled.div`
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
   background: rgba(0, 0, 0, 0.02);
   border: 5px solid white;
@@ -20,11 +25,18 @@ const Form = styled.form`
   font-size: 1.5rem;
   line-height: 1.5;
   font-weight: 600;
+  display: flex;
   margin: 5rem auto;
-  width: 30vw;
+  max-width: 50vw;
+  flex-grow: 1;
+  .MuiGrid-spacing-xs-3 > .MuiGrid-item {
+    padding: 0 10px;
+  }
   label {
     display: block;
-    margin-bottom: 1rem;
+    font-weight: normal;
+    font-size: 14px;
+    margin-top: 1rem;
   }
   input,
   textarea,
@@ -81,11 +93,13 @@ const Form = styled.form`
       animation: ${loading} 0.5s linear infinite;
     }
   }
-  @media(max-width: 750px) {
-    width: 225px;
+  @media(max-width: 790px) {
     padding: 0.2rem;
     fieldset {
       margin: 0.5;
+    }
+    label {
+      font-size: 1rem
     }
 
     button {
@@ -94,4 +108,4 @@ const Form = styled.form`
   }
 `;
 
-export default Form;
+export default FormContainer;
