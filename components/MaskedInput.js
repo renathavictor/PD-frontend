@@ -1,10 +1,10 @@
 import React from 'react'
 import MaskedInput from 'react-text-mask'
 
-import Input from './Input'
+import InputField from './InputField'
 
 const MaskedInputText = props => {
-  return <Input {...props} component={MaskedInput} />
+  return <InputField {...props} component={MaskedInput} />
 }
 
 export default MaskedInputText

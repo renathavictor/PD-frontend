@@ -3,6 +3,7 @@ import Router from 'next/router'
 import styled from 'styled-components'
 
 import AuthContext from '../context/auth/authContext'
+import EditionsList from './EditionsList'
 
 const ButtonHome = styled.div`
   display: flex;
@@ -46,7 +47,7 @@ const Home = () => {
     <div>
       <h3>Hi, { user && user?.user.name }</h3>
       <ButtonHome>
-        home
+        <EditionsList />
       </ButtonHome>
     </div>
   ) : <div>No permission to access this page</div>

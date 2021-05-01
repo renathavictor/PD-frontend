@@ -3,7 +3,7 @@ import { useField } from 'formik'
 
 import { ErrorMessage } from './styles/Form'
 
-const Input = ({
+const InputField = ({
   component: CustomComponent,
   ...props
 }) => {
@@ -28,8 +28,8 @@ const Input = ({
   )
 }
 
-Input.propTypes = {
+InputField.propTypes = {
 
 }
 
-export default Input
+export default InputField

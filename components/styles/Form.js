@@ -19,7 +19,7 @@ export const ErrorMessage = styled.div`
 
 const FormContainer = styled.div`
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
-  background: rgba(0, 0, 0, 0.02);
+  /* background: rgba(0, 0, 0, 0.02); */
   border: 5px solid white;
   padding: 20px;
   font-size: 1.5rem;
@@ -27,7 +27,7 @@ const FormContainer = styled.div`
   font-weight: 600;
   display: flex;
   margin: 5rem auto;
-  max-width: 50vw;
+  max-width: 30vw;
   flex-grow: 1;
   .MuiGrid-spacing-xs-3 > .MuiGrid-item {
     padding: 0 10px;
