@@ -1,11 +1,14 @@
 import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
 import styled from 'styled-components'
+import Link from 'next/link'
 
 import AuthContext from '../context/auth/authContext'
 import EditionsList from './EditionsList'
+import { Button } from '@material-ui/core'
 
-const ButtonHome = styled.div`
+// isso ir para oarquivo do card
+const HomeStyles = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 5rem;
@@ -46,9 +49,11 @@ const Home = () => {
   return isAuthenticated ? (
     <div>
       <h3>Hi, { user && user?.user.name }</h3>
-      <ButtonHome>
+      {/* TODO - botão apenas para admin */}
+      <Link href='/create-edition'><a>+ Adicionar Edição</a></Link>
+      <HomeStyles>
         <EditionsList />
-      </ButtonHome>
+      </HomeStyles>
     </div>
   ) : <div>No permission to access this page</div>
 }
