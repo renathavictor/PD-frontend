@@ -50,7 +50,7 @@ const Home = () => {
     <div>
       <h3>Hi, { user && user?.user.name }</h3>
       {/* TODO - botão apenas para admin */}
-      <Link href='/create-edition'><a>+ Adicionar Edição</a></Link>
+      <Link href='/edition/create-edition'><a>+ Adicionar Edição</a></Link>
       <HomeStyles>
         <EditionsList />
       </HomeStyles>

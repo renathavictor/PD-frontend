@@ -62,7 +62,6 @@ const SignUp = () => {
           .test('phone', messages.invalidTelephone, value => validateTelephone(value)),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        console.log('values register ', values)
         register({ user: values })
         setSubmitting(false)
       }}

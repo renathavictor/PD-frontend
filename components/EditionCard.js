@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Link from 'next/link'
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -56,17 +57,19 @@ const useStyles = makeStyles((theme) => ({
 export default function EditionCard({
   startDate,
   title,
-  description
+  description,
+  id,
+  ...props
 }) {
   const classes = useStyles();
-  console.log(startDate)
+
   return (
     <Card className={classes.root}>
       <CardHeader
         action={
           // TODO - apenas para admin
           <IconButton aria-label="settings" className={classes.button}>
-            <MoreVertIcon />
+            <MoreVertIcon onClick={() => console.log('editar ou deletar')} />
           </IconButton>
         }
         title={title}
@@ -94,7 +97,7 @@ export default function EditionCard({
           Inscrever-se
         </IconButton> */}
         <IconButton aria-label="acess" className={classes.button}>
-          Acessar
+          <Link href={`/edition/${id}`}><a>Acessar</a></Link>
         </IconButton>
       </CardActions>
     </Card>

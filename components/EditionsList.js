@@ -12,8 +12,6 @@ const EditionsList = () => {
   const { isAuthenticated, loading } = authContext
   const { editions, getEditions, setCurrent, current, deleteEdition, updateEdition, error, clearCurrent } = editionContext
 
-
-  console.log({ editionContext, authContext })
   useEffect(() => {
     authContext.loadUser()
     getEditions()
@@ -31,10 +29,10 @@ const EditionsList = () => {
   return (
     <EditionsStyles>
       { editions.map(edition => {
-        console.log(edition)
         return (
         <Card
           key={edition._id?.$oid}
+          id={edition._id?.$oid}
           endDate={edition.end_date_time}
           startDate={edition.start_date_time}
           title={edition.title}

@@ -1,10 +1,9 @@
 import React from 'react'
+import CreateEditionForm from '../../components/CreateEditionForm'
 
 const CreateEdition = () => {
   return (
-    <div>
-      nova edição
-    </div>
+    <CreateEditionForm />
   )
 }
 
