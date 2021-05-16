@@ -49,7 +49,6 @@ const Login = () => {
             .required(messages.required)
         })}
         onSubmit={(values, { setSubmitting }) => {
-          console.log('values login ', values)
           login({ user: values })
           setSubmitting(false)
         }}

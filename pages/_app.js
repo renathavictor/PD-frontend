@@ -5,6 +5,8 @@ import Page from '../components/Page'
 // import store from '../store/configureStore'
 import AuthState from '../context/auth/AuthState'
 import AlertState from '../context/alert/AlertState'
+import EditionState from '../context/editions/editionState'
+import ExamState from '../context/exams/examState'
 import setAuthToken from '../utils/setAuthToken'
 
 class MyApp extends App {
@@ -30,9 +32,13 @@ class MyApp extends App {
     return (
       <AuthState>
         <AlertState>
-          <Page>
-            <Component { ...pageProps } />
-          </Page>
+          <EditionState>
+            <ExamState>
+              <Page>
+                <Component { ...pageProps } />
+              </Page>
+            </ExamState>
+          </EditionState>
         </AlertState>
       </AuthState>
     )

@@ -114,6 +114,12 @@ const EditionState = props => {
     dispatch({ type: CLEAR_FILTER })
   }
 
+  const clearErros = () => {
+    dispatch({ type: EDITION_ERROR })
+  }
+
+  console.log('----- ', state)
+
   return (
     <EditionContext.Provider
       value={{
@@ -129,7 +135,8 @@ const EditionState = props => {
         filterEditions,
         clearFilter,
         getEditions,
-        clearEditions
+        clearEditions,
+        clearErros
       }}
     >
       {props.children}
