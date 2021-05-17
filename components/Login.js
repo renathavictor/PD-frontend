@@ -54,7 +54,7 @@ const Login = () => {
         }}
       >
         <Form>
-          <h3>Sign in</h3>
+          <h2>Sign in</h2>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <InputField
@@ -62,7 +62,7 @@ const Login = () => {
                 name="email"
                 label="Email"
                 placeholder="What is your email?"
-              />
+                />
             </Grid>
             <Grid item xs={12}>
               <InputField
@@ -70,7 +70,7 @@ const Login = () => {
                 name="password"
                 label="Password"
                 placeholder="Enter your password"
-              />
+                />
             </Grid>
           </Grid>
           <div style={{

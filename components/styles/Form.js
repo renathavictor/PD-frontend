@@ -20,7 +20,6 @@ export const ErrorMessage = styled.div`
 const FormContainer = styled.div`
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
   /* background: rgba(0, 0, 0, 0.02); */
-  border: 5px solid white;
   padding: 20px;
   font-size: 1.5rem;
   line-height: 1.5;
@@ -42,10 +41,10 @@ const FormContainer = styled.div`
   textarea,
   select {
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 0.8rem;
     border-radius: 3px;
-    font-size: 1rem;
-    border: 1px solid black;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
     &:focus {
       outline: 0;
       border-color: ${props => props.theme.primary};
@@ -113,8 +112,8 @@ export const FormEditionContainer = styled.div`
   /* background: rgba(0, 0, 0, 0.02); */
   border: 5px solid white;
   padding: 20px;
-  font-size: 1.5rem;
-  line-height: 1.5;
+  /* font-size: 1.5rem; */
+  /* line-height: 1.5; */
   font-weight: 600;
   display: flex;
   margin: 5rem auto;
@@ -123,13 +122,45 @@ export const FormEditionContainer = styled.div`
   .MuiGrid-spacing-xs-3 > .MuiGrid-item {
     padding: 0 10px;
   }
+  form {
+    margin: auto;
+  }
+  h3 {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 4rem;
+  }
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: 1rem 0.8rem;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    &:focus {
+      outline: 0;
+      border-color: ${props => props.theme.primary};
+    }
+  }
+  button[type='submit'],
+  input[type='submit'] {
+    cursor: pointer;
+    border-radius: 3px;
+    width: auto;
+    background: red;
+    color: white;
+    border: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    background-color: ${props => props.theme.primary};
+  }
   label {
     display: block;
     font-weight: normal;
-    font-size: 14px;
-    margin-top: 1rem;
+    font-size: 16px;
   }
-  input,
+  /* input,
   textarea,
   select {
     width: 100%;
@@ -183,7 +214,7 @@ export const FormEditionContainer = styled.div`
       background-size: 50% auto;
       animation: ${loading} 0.5s linear infinite;
     }
-  }
+  } */
   @media(max-width: 790px) {
     padding: 0.2rem;
     fieldset {
