@@ -14,7 +14,8 @@ import {
   FILTER_EDITIONS,
   CLEAR_EDITIONS,
   CLEAR_FILTER,
-  EDITION_ERROR
+  EDITION_ERROR,
+  GET_EDITION
 } from '../types'
 
 const URL_ROUTE = '/editions'
@@ -24,7 +25,8 @@ const EditionState = props => {
     editions: null,
     current: null,
     filtered: null,
-    error: null
+    error: null,
+    loading: true
   }
 
   const [state, dispatch] = useReducer(editionReducer, initialState)
@@ -56,6 +58,22 @@ const EditionState = props => {
       dispatch({
         type: EDITION_ERROR,
         payload: err.response.data
+      })
+    }
+  }
+
+  const getEdition = async id => {
+    try {
+      const res = await api.get(`${URL_ROUTE}/${id}`)
+      console.log('get edition ', res)
+      dispatch({
+        type: GET_EDITION,
+        payload: res.data
+      })
+    } catch (error) {
+      dispatch({
+        type: EDITION_ERROR,
+        payload: error?.response.data
       })
     }
   }
@@ -127,6 +145,7 @@ const EditionState = props => {
         current: state.current,
         filtered: state.filtered,
         error: state.error,
+        loading: state.loading,
         addEdition,
         deleteEdition,
         setCurrent,
@@ -135,6 +154,7 @@ const EditionState = props => {
         filterEditions,
         clearFilter,
         getEditions,
+        getEdition,
         clearEditions,
         clearErros
       }}

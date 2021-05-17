@@ -48,7 +48,7 @@ const CreateExamForm = () => {
       }}
      >
       <Form>
-        <h3>Create new Edition</h3>
+        <h3>Create new Exam</h3>
         <Grid container spacing={3}>
           <Grid item xs={12}>
           <Grid item xs={12}>

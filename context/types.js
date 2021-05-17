@@ -13,6 +13,7 @@ export const REMOVE_ALERT = 'REMOVE_ALERT'
 
 // Edition
 export const GET_EDITIONS = 'GET_EDITIONS'
+export const GET_EDITION = 'GET_EDITION'
 export const ADD_EDITION = 'ADD_EDITION'
 export const DELETE_EDITION = 'DELETE_EDITION'
 export const UPDATE_EDITION = 'UPDATE_EDITION'

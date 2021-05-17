@@ -8,7 +8,8 @@ import {
   FILTER_EDITIONS,
   CLEAR_EDITIONS,
   CLEAR_FILTER,
-  EDITION_ERROR
+  EDITION_ERROR,
+  GET_EDITION
 } from '../types'
 
 const editionReducer = (state, action) => {
@@ -25,6 +26,12 @@ const editionReducer = (state, action) => {
         ...state,
         current: action.payload,
         // editions: [action.payload, ...state.editions],
+        loading: false
+      }
+    case GET_EDITION:
+      return {
+        ...state,
+        current: action.payload,
         loading: false
       }
     case UPDATE_EDITION:
