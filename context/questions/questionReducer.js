@@ -1,32 +1,32 @@
 import {
-  GET_EXAMS,
-  ADD_EXAM,
-  DELETE_EXAM,
+  GET_QUESTIONS,
+  ADD_QUESTION,
+  DELETE_QUESTION,
   SET_CURRENT,
   CLEAR_CURRENT,
-  UPDATE_EXAM,
-  FILTER_EXAMS,
-  CLEAR_EXAMS,
+  UPDATE_QUESTION,
+  FILTER_QUESTIONS,
+  CLEAR_QUESTIONS,
   CLEAR_FILTER,
-  EXAM_ERROR
+  QUESTION_ERROR
 } from '../types'
 
-const examReducer = (state, action) => {
+const questionReducer = (state, action) => {
   switch (action.type) {
-    case GET_EXAMS:
+    case GET_QUESTIONS:
       return {
         ...state,
         exams: action.payload,
         loading: false
       }
-    case ADD_EXAM:
+    case ADD_QUESTION:
       return {
         ...state,
         current: action.payload,
         // exams: [action.payload, ...state.exams],
         loading: false
       }
-    case UPDATE_EXAM:
+    case UPDATE_QUESTION:
       return {
         ...state,
         exams: state.exams.map(exam =>
@@ -34,7 +34,7 @@ const examReducer = (state, action) => {
         ),
         loading: false
       }
-    case DELETE_EXAM:
+    case DELETE_QUESTION:
       return {
         ...state,
         exams: state.exams.filter(
@@ -42,7 +42,7 @@ const examReducer = (state, action) => {
         ),
         loading: false
       }
-    case CLEAR_EXAMS:
+    case CLEAR_QUESTIONS:
       return {
         ...state,
         exams: null,
@@ -60,7 +60,7 @@ const examReducer = (state, action) => {
         ...state,
         current: null
       }
-    case FILTER_EXAMS:
+    case FILTER_QUESTIONS:
       return {
         ...state,
         filtered: state.exams.filter(exam => {
@@ -73,7 +73,7 @@ const examReducer = (state, action) => {
         ...state,
         filtered: null
       }
-    case EXAM_ERROR:
+    case QUESTION_ERROR:
       return {
         ...state,
         error: action.payload
@@ -83,4 +83,4 @@ const examReducer = (state, action) => {
   }
 }
 
-export default examReducer
+export default questionReducer
