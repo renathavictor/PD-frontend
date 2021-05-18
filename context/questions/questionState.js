@@ -1,101 +1,100 @@
 import React, { useReducer } from 'react'
 
 import api from '../../utils/api'
-import ExamContext from './questionContext'
-import examReducer from './questionReducer'
+import QuestionContext from './questionContext'
+import questionReducer from './questionReducer'
 
 import {
-  GET_EXAMS,
-  ADD_EXAM,
-  DELETE_EXAM,
+  GET_QUESTIONS,
+  ADD_QUESTION,
+  DELETE_QUESTION,
   SET_CURRENT,
   CLEAR_CURRENT,
-  UPDATE_EXAM,
-  FILTER_EXAMS,
-  CLEAR_EXAMS,
-  CLEAR_FILTER,
-  EXAM_ERROR
+  UPDATE_QUESTION,
+  FILTER_QUESTIONS,
+  CLEAR_QUESTIONS,
+  CLEAR_FILTER
 } from '../types'
 
 const URL_ROUTE = '/proofs'
 
-const ExamState = props => {
+const QuestionState = props => {
   const initialState = {
-    exams: null,
+    question: null,
     current: null,
     filtered: null,
     error: null
   }
 
-  const [state, dispatch] = useReducer(examReducer, initialState)
+  const [state, dispatch] = useReducer(questionReducer, initialState)
 
-  const getExams = async () => {
+  const getQuestions = async () => {
     try {
       const res = await api.get(URL_ROUTE)
       dispatch({
-        type: GET_EXAMS,
+        type: GET_QUESTIONS,
         payload: res.data
       })
     } catch (err) {
       dispatch({
-        type: EXAM_ERROR,
+        type: QUESTION_ERROR,
         payload: err.response.data
       })
     }
   }
 
-  const addExam = async exam => {
+  const addQuestion = async qustion => {
     try {
-      const res = await api.post(URL_ROUTE, exam)
+      const res = await api.post(URL_ROUTE, qustion)
 
       dispatch({
-        type: ADD_EXAM,
+        type: ADD_QUESTION,
         payload: res.data
       })
     } catch (err) {
       dispatch({
-        type: EXAM_ERROR,
+        type: QUESTION_ERROR,
         payload: err.response.data
       })
     }
   }
 
-  const deleteExam = async id => {
+  const deleteQuestion = async id => {
     try {
       await api.delete(`${URL_ROUTE}/${id}`)
 
       dispatch({
-        type: DELETE_EXAM,
+        type: DELETE_QUESTION,
         payload: id
       })
     } catch (err) {
       dispatch({
-        type: EXAM_ERROR,
+        type: QUESTION_ERROR,
         payload: err.response.data
       })
     }
   }
 
-  const updateExam = async exam => {
+  const updateQuestion = async question => {
     try {
       const res = await api.put(
-        `${URL_ROUTE}/${exam.id}`,
-        exam
+        `${URL_ROUTE}/${question.id}`,
+        question
       )
       dispatch({
-        type: UPDATE_EXAM,
+        type: UPDATE_QUESTION,
         payload: res.data
       })
     } catch (err) {
       dispatch({
-        type: EXAM_ERROR,
+        type: QUESTION_ERROR,
         payload: err.response.data
       })
     }
   }
 
-  const clearExams = () => {
-    dispatch({ type: CLEAR_EXAMS })
+  const clearQuestions = () => {
+    dispatch({ type: CLEAR_QUESTIONS })
   }
 
   const setCurrent = list => {
@@ -106,8 +105,8 @@ const ExamState = props => {
     dispatch({ type: CLEAR_CURRENT })
   }
 
-  const filterExams = text => {
-    dispatch({ type: FILTER_EXAMS, payload: text })
+  const filterQuestions = text => {
+    dispatch({ type: FILTER_QUESTIONS, payload: text })
   }
 
   const clearFilter = () => {
@@ -115,26 +114,26 @@ const ExamState = props => {
   }
 
   return (
-    <ExamContext.Provider
+    <QuestionContext.Provider
       value={{
-        exams: state.exams,
+        questions: state.questions,
         current: state.current,
         filtered: state.filtered,
         error: state.error,
-        addExam,
-        deleteExam,
+        addQuestion,
+        deleteQuestion,
         setCurrent,
         clearCurrent,
-        updateExam,
-        filterExams,
+        updateQuestion,
+        filterQuestions,
         clearFilter,
-        getExams,
-        clearExams
+        getQuestions,
+        clearQuestions
       }}
     >
       {props.children}
-    </ExamContext.Provider>
+    </QuestionContext.Provider>
   )
 }
 
-export default ExamState
+export default QuestionState
