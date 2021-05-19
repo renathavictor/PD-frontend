@@ -1,9 +1,12 @@
 import React from 'react'
-import CreateEditionForm from '../../components/CreateEditionForm'
+import EditionForm from '../../components/EditionForm'
 
 const CreateEdition = () => {
   return (
-    <CreateEditionForm />
+    <>
+    <h3>Create new Edition</h3>
+      <EditionForm />
+    </>
   )
 }
 

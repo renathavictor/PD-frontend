@@ -37,9 +37,7 @@ const editionReducer = (state, action) => {
     case UPDATE_EDITION:
       return {
         ...state,
-        editions: state.editions.map(edition =>
-          edition.id === action.payload.id ? action.payload : edition
-        ),
+        current: action.payload,
         loading: false
       }
     case DELETE_EDITION:

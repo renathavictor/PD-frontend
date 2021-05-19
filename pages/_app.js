@@ -1,5 +1,6 @@
 import App from 'next/app'
 import { Provider } from 'react-redux'
+import 'moment/locale/pt-br'
 
 import Page from '../components/Page'
 // import store from '../store/configureStore'
