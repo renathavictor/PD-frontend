@@ -4,8 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import CreateExamForm from '../../../components/CreateExamForm'
-import CreateQuestionForm from '../../../components/CreateQuestionForm'
+import CreateExamForm from '../../../components/form/CreateExamForm'
+import CreateQuestionForm from '../../../components/form/CreateQuestionForm'
 import ExamContext from '../../../context/exams/examContext'
 import QuestionContext from '../../../context/questions/questionContext'
 
@@ -39,14 +39,8 @@ const createExam = ({ query }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-
-    console.log('--------------------- ', newValue)
     setValue(newValue);
   };
-
-  React.useEffect(() => {
-    console.log(examContext.current)
-  }, [])
 
   return (
     <Paper square>

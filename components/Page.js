@@ -32,15 +32,15 @@ const Inner = styled.div`
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: 'radnika_next';
-    src: url('/radnikanext-medium-webfont.woff2')
+    font-family: 'Roboto-Medium';
+    src: url('/Roboto-Medium.ttf')
     format('woff2');
     font-weight: normal;
     font-style: normal;
   }
   html {
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 14px;
   }
   *, *:before, *:after {
     box-sizing: inherit;
@@ -49,8 +49,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     font-size: 1.5rem;
-    line-height: 2;
-    font-family: 'radnika_next';
+    font-family: 'Roboto-Medium';
   }
   a {
     text-decoration: none;

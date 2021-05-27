@@ -5,7 +5,8 @@ import Link from 'next/link'
 
 import AuthContext from '../context/auth/authContext'
 import EditionsList from './EditionsList'
-import { Button } from '@material-ui/core'
+import { Button, CircularProgress } from '@material-ui/core'
+import { PARTICIPANT_PROFILE_ID } from '../utils/constants'
 
 // isso ir para oarquivo do card
 const HomeStyles = styled.div`
@@ -44,13 +45,18 @@ const Home = () => {
       Router.push('/login')
     }
 
-  }, [])
+  }, [isAuthenticated])
+
+  if (loading) return <CircularProgress />
 
   return isAuthenticated ? (
     <div>
       <h3>Hi, { user && user?.user.name }</h3>
       {/* TODO - botão apenas para admin */}
-      <Link href='/edition/create-edition'><Button color='primary' variant='contained'>+ Adicionar Edição</Button></Link>
+      {
+        user?.user.profile_id.$oid !== PARTICIPANT_PROFILE_ID &&
+        <Link href='/edition/create-edition'><Button color='primary' variant='contained'>+ Adicionar Edição</Button></Link>
+      }
       <HomeStyles>
         <EditionsList />
       </HomeStyles>

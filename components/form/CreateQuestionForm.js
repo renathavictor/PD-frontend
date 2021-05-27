@@ -7,10 +7,11 @@ import * as Yup from 'yup'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
 
-import InputField from './InputField'
-import AlertContext from '../context/alert/alertContext'
-import { FormEditionContainer } from './styles/Form'
-import { messages, phoneMask, validateTelephone } from '../utils/validations'
+import InputField from '../input/InputField'
+import AlertContext from '../../context/alert/alertContext'
+import { Container } from '../styles/Form'
+import { messages, phoneMask, validateTelephone } from '../../utils/validations'
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,12 +37,11 @@ function getSteps() {
 
 const CreateQuestionForm = ({ editionId }) => {
   const alertContext = useContext(AlertContext)
-  console.log('editionId ', editionId)
   const { setAlert } = alertContext
   const classes = useStyles();
 
   return (
-    <FormEditionContainer>
+    <Container>
       <Formik
             initialValues={{
               title: '',
@@ -81,7 +81,6 @@ const CreateQuestionForm = ({ editionId }) => {
               .required(messages.required),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            console.log('values question ', values)
             // redirecionar para tela da edição
             setSubmitting(false)
           }}
@@ -152,11 +151,11 @@ const CreateQuestionForm = ({ editionId }) => {
               justifyContent: 'space-between',
               marginTop: '2.5rem'
             }}>
-              <button type="submit">Adicionar Questão</button>
+              <Button color='primary' variant='contained' type="submit">Adicionar Questão</Button>
             </div>
           </Form>
         </Formik>
-  </FormEditionContainer>
+    </Container>
   )
 }
 

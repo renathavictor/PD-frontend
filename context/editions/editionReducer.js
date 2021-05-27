@@ -13,7 +13,6 @@ import {
 } from '../types'
 
 const editionReducer = (state, action) => {
-  console.log('ACTION ', action)
   switch (action.type) {
     case GET_EDITIONS:
       return {

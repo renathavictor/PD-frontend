@@ -10,6 +10,7 @@ import EditionState from '../context/editions/editionState'
 import ExamState from '../context/exams/examState'
 import setAuthToken from '../utils/setAuthToken'
 import QuestionState from '../context/questions/questionState'
+import RegisterState from '../context/register/registerState'
 
 class MyApp extends App {
 
@@ -37,9 +38,11 @@ class MyApp extends App {
           <EditionState>
             <ExamState>
               <QuestionState>
-                <Page>
-                  <Component { ...pageProps } />
-                </Page>
+                <RegisterState>
+                  <Page>
+                    <Component { ...pageProps } />
+                  </Page>
+                </RegisterState>
               </QuestionState>
             </ExamState>
           </EditionState>
