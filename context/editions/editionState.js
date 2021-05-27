@@ -65,7 +65,6 @@ const EditionState = props => {
   const getEdition = async id => {
     try {
       const res = await api.get(`${URL_ROUTE}/${id}`)
-      console.log('get edition ', res)
       dispatch({
         type: GET_EDITION,
         payload: res.data
@@ -135,8 +134,6 @@ const EditionState = props => {
   const clearErros = () => {
     dispatch({ type: EDITION_ERROR })
   }
-
-  console.log('----- ', state)
 
   return (
     <EditionContext.Provider

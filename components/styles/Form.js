@@ -17,6 +17,69 @@ export const ErrorMessage = styled.div`
   font-size: 12px;
 `
 
+export const Container = styled.div`
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.02);
+  border: 5px solid white;
+  padding-right: 20px;
+  line-height: 1.5;
+  font-weight: 600;
+  display: flex;
+  margin: 4rem auto;
+  flex-grow: 1;
+  .MuiGrid-spacing-xs-3 > .MuiGrid-item {
+    padding: 0 10px;
+  }
+  h3 {
+    border-bottom: 2px solid ${props => props.theme.primary};
+    margin-bottom: 3rem;
+  }
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    &:focus {
+      outline: 0;
+      border-color: ${props => props.theme.primary};
+    }
+  }
+  button,
+  input[type='submit'] {
+    width: auto;
+    border: 0;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    /* background-color: ${props => props.theme.primary}; */
+  }
+  a {
+    margin: auto 0;
+    padding: 0.8rem;
+    border-radius: 3px;
+    background-color: transparent;
+    color: ${props => props.theme.black};
+    font-size: 12px;
+    &:hover {
+      background-color: ${props => props.theme.lightgrey};
+    }
+  }
+  @media(max-width: 790px) {
+    padding: 0.2rem;
+    max-width: 40vw;
+    fieldset {
+      margin: 0.5;
+    }
+    label {
+      font-size: 1rem
+    }
+
+    button {
+      font-size: 1.5rem;
+    }
+  }
+`
+
 const FormContainer = styled.div`
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
   /* background: rgba(0, 0, 0, 0.02); */
@@ -27,7 +90,6 @@ const FormContainer = styled.div`
   font-weight: 600;
   display: flex;
   margin: 5rem auto;
-  max-width: 30vw;
   flex-grow: 1;
   .MuiGrid-spacing-xs-3 > .MuiGrid-item {
     padding: 0 10px;

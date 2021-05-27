@@ -13,7 +13,6 @@ import {
 } from '../types'
 
 const editionReducer = (state, action) => {
-  console.log('ACTION ', action)
   switch (action.type) {
     case GET_EDITIONS:
       return {
@@ -37,9 +36,7 @@ const editionReducer = (state, action) => {
     case UPDATE_EDITION:
       return {
         ...state,
-        editions: state.editions.map(edition =>
-          edition.id === action.payload.id ? action.payload : edition
-        ),
+        current: action.payload,
         loading: false
       }
     case DELETE_EDITION:

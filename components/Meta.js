@@ -6,7 +6,7 @@ const Meta = () => (
     <meta charSet='utf-8' />
     <link rel='shortcut icon' href='/favicon.png' />
     <link rel='stylesheet' type='text/css' href='/nprogress.css' />
-    <title>Boilerplate</title>
+    <title>Olimpics</title>
   </Head>
 );
 

@@ -1,7 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment'
 import Link from 'next/link'
 import clsx from 'clsx';
+
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -15,13 +17,12 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 250,
     width: 250,
+    margin: '2rem'
   },
   media: {
     height: 0,
@@ -66,12 +67,12 @@ export default function EditionCard({
   return (
     <Card className={classes.root}>
       <CardHeader
-        action={
-          // TODO - apenas para admin
-          <IconButton aria-label="settings" className={classes.button}>
-            <MoreVertIcon onClick={() => console.log('editar ou deletar')} />
-          </IconButton>
-        }
+        // action={
+        //   // TODO - apenas para admin
+        //   <IconButton aria-label="settings" className={classes.button}>
+        //     <DeleteOutlineIcon onClick={() => console.log('editar ou deletar')} />
+        //   </IconButton>
+        // }
         title={title}
       />
       <CardMedia

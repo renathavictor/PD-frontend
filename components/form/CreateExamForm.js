@@ -7,10 +7,11 @@ import * as Yup from 'yup'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
 
-import InputField from './InputField'
-import AlertContext from '../context/alert/alertContext'
-import { FormEditionContainer } from './styles/Form'
-import { messages } from '../utils/validations'
+import InputField from '../input/InputField'
+import AlertContext from '../../context/alert/alertContext'
+import { Container } from '../styles/Form'
+import { messages } from '../../utils/validations'
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,9 +38,8 @@ function getSteps() {
 const CreateExamForm = ({ editionId, handleChange, current, error, addExam }) => {
   const alertContext = useContext(AlertContext)
   const classes = useStyles();
-  console.log('current ', current)
   return (
-    <FormEditionContainer>
+    <Container>
       <Formik
           initialValues={{
            description: current?.description || '',
@@ -62,10 +62,8 @@ const CreateExamForm = ({ editionId, handleChange, current, error, addExam }) =>
               .required(messages.required),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            console.log('values exam ', values)
             // redirecionar para tela da edição
             const response = await addExam({ ...values })
-            console.log({ response })
             handleChange('', 1)
             setSubmitting(false)
           }}
@@ -110,11 +108,11 @@ const CreateExamForm = ({ editionId, handleChange, current, error, addExam }) =>
               justifyContent: 'space-between',
               marginTop: '2.5rem'
             }}>
-              <button type="submit">Criar Prova</button>
+              <Button color='primary' variant='contained' type="submit">Criar Prova</Button>
             </div>
           </Form>
         </Formik>
-    </FormEditionContainer>
+    </Container>
   )
 }
 
