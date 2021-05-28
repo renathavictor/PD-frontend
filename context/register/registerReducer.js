@@ -8,6 +8,12 @@ const registerReducer = (state, action) => {
         registers: action.payload,
         loading: false
       }
+    case types.GET_REGISTER:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false
+      }
     case types.ADD_REGISTER:
       return {
         ...state,
@@ -38,17 +44,17 @@ const registerReducer = (state, action) => {
         error: null,
         current: null
       }
-    case SET_CURRENT:
+    case types.SET_CURRENT:
       return {
         ...state,
         current: action.payload
       }
-    case CLEAR_CURRENT:
+    case types.CLEAR_CURRENT:
       return {
         ...state,
         current: null
       }
-    case CLEAR_FILTER:
+    case types.CLEAR_FILTER:
       return {
         ...state,
         filtered: null

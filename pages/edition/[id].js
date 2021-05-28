@@ -71,8 +71,6 @@ const Editions = ({ query }) => {
   if (loading) return <CircularProgress />
 
   useEffect(() => {
-    // TODO
-    // pegar a edição atual com o id que vem no param
     const getCurrent = async () => {
       await getEdition(id)
     }

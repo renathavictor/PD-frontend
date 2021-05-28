@@ -47,6 +47,7 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS'
 
 // Registers
 export const GET_REGISTERS = 'GET_REGISTERS'
+export const GET_REGISTER = 'GET_REGISTER'
 export const ADD_REGISTER = 'ADD_REGISTER'
 export const DELETE_REGISTER = 'DELETE_REGISTER'
 export const UPDATE_REGISTER = 'UPDATE_REGISTER'

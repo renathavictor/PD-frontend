@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import Login from '../Login'
+import Login from '../form/Login'
 
 const wrapper = shallow(<Login />)
 

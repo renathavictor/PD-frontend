@@ -33,6 +33,21 @@ const RegisterState = props => {
     }
   }
 
+  const getRegister = async id => {
+    try {
+      const res = await api.get(`${URL_ROUTE}/${id}`)
+      dispatch({
+        type: types.GET_REGISTER,
+        payload: res.data
+      })
+    } catch (error) {
+      dispatch({
+        type: types.REGISTER_ERROR,
+        payload: error?.response.data
+      })
+    }
+  }
+
   const addRegister = async register => {
     try {
       const res = await api.post(URL_ROUTE, register)
@@ -118,6 +133,7 @@ const RegisterState = props => {
         filterRegisters,
         clearFilter,
         getRegisters,
+        getRegister,
         clearRegisters
       }}
     >
