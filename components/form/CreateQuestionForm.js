@@ -1,17 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react'
 import Router from 'next/router'
 import Link from 'next/link'
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup'
 
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 
 import InputField from '../input/InputField'
 import AlertContext from '../../context/alert/alertContext'
 import { Container } from '../styles/Form'
 import { messages, phoneMask, validateTelephone } from '../../utils/validations'
-import { Button } from '@material-ui/core';
+import AutocompleteField from '../../components/input/AutocompleteField'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -137,12 +138,18 @@ const CreateQuestionForm = ({ editionId }) => {
                   />
               </Grid>
               <Grid item xs={12}>
-                <InputField
-                  type="text"
-                  name="right_answer"
-                  label="Opção correta"
-                  placeholder="Título"
-                  />
+                <Field
+                  name='right_answer'
+                  label='Resposta Correta'
+                  options={[
+                    { value: 'answer1', label: 'Resposta 1' },
+                    { value: 'answer2', label: 'Resposta 2' },
+                    { value: 'answer3 ', label: 'Resposta 3' },
+                    { value: 'answer4 ', label: 'Resposta 4' },
+                    { value: 'answer5 ', label: 'Resposta 5' },
+                  ]}
+                  component={AutocompleteField}
+                />
               </Grid>
               </Grid>
             </Grid>

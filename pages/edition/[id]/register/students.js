@@ -1,11 +1,11 @@
 import React from 'react'
 
-const ExamPage = () => {
+const Students = () => {
   return (
     <div>
-      Prova
+      Estudantes
     </div>
   )
 }
 
-export default ExamPage
+export default Students

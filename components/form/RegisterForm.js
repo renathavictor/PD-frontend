@@ -94,6 +94,7 @@ const RegisterForm = ({ editionId }) => {
           console.table(values)
           await addRegister(values)
           setSubmitting(false)
+          Router.push(`/edition/${editionId}/register/students`)
           clearRegisters()
         }}
       >
@@ -102,7 +103,6 @@ const RegisterForm = ({ editionId }) => {
           <div>
             <Grid container spacing={3}>
               <Grid item xs={12} style={{ marginLeft: '0.5rem' }}>
-                <h3>Registrar estudante</h3>
               </Grid>
               <Grid item xs={12}>
                 <Field

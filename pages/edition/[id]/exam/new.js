@@ -4,10 +4,10 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
-import ExamForm from '../../../components/form/ExamForm'
-import CreateQuestionForm from '../../../components/form/CreateQuestionForm'
-import ExamContext from '../../../context/exams/examContext'
-import QuestionContext from '../../../context/questions/questionContext'
+import ExamForm from '../../../../components/form/ExamForm'
+import CreateQuestionForm from '../../../../components/form/CreateQuestionForm'
+import ExamContext from '../../../../context/exams/examContext'
+import QuestionContext from '../../../../context/questions/questionContext'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -29,7 +29,7 @@ function TabPanel(props) {
   );
 }
 
-const createExam = ({ query }) => {
+const Exam = ({ query }) => {
   const examContext = useContext(ExamContext)
   const questionContext = useContext(QuestionContext)
 
@@ -57,13 +57,13 @@ const createExam = ({ query }) => {
       </Tabs>
       <TabPanel value={value} index={0} style={{ paddingBottom: '2rem' }}>
         <ExamForm
-            addExam={examContext.addExam}
-            current={examContext.current}
-            error={examContext.logerror}
-            clearCurrent={examContext.clearCurrent}
-            editionId={query.id}
-            handleChange={handleChange}
-          />
+          addExam={examContext.addExam}
+          current={examContext.current}
+          error={examContext.logerror}
+          clearCurrent={examContext.clearCurrent}
+          editionId={query.id}
+          handleChange={handleChange}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <CreateQuestionForm
@@ -76,4 +76,4 @@ const createExam = ({ query }) => {
   )
 }
 
-export default createExam
+export default Exam
