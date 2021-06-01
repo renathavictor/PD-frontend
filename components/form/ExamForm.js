@@ -33,20 +33,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ['Criar prova', 'Adicionar Questões'];
+  return ['Prova', 'Questões'];
 }
 
-const ExamForm = ({ editionId, handleChange, current, error, addExam }) => {
+const ExamForm = ({ editionId, handleChange, current, error, addExam, updateExam, clearCurrent }) => {
   const alertContext = useContext(AlertContext)
   const classes = useStyles();
+  const isEdit = !!current
+
   return (
-    <Container>
+    <Container style={{
+      boxShadow: 'none',
+      background: 'none',
+      display: 'flex',
+      justifyContent: 'center'
+    }}>
       <Formik
           initialValues={{
            description: current?.description || '',
            start_date_time: current?.start_date_time || '',
            end_date_time: current?.end_date_time || '',
-           logo: current?.logo || '',
+          //  logo: current?.logo || '',
            edition_id: editionId,
           }}
           validationSchema={Yup.object({
@@ -56,15 +63,18 @@ const ExamForm = ({ editionId, handleChange, current, error, addExam }) => {
             start_date_time: Yup.string()
               .required(messages.required),
             end_date_time: Yup.string()
-              .required(messages.required),
-            logo: Yup.string()
-              .required(messages.required),
+              .required(messages.required)
+            // logo: Yup.string()
+            //   .required(messages.required),
           })}
           onSubmit={async (values, { setSubmitting }) => {
             // redirecionar para tela da edição
             console.table(values)
-            const response = await addExam({ ...values })
-            console.log({response})
+            if (isEdit) {
+              await updateExam({ ...values, id: current._id.$oid })
+            } else {
+              const response = await addExam({ ...values })
+            }
             handleChange('', 1)
             setSubmitting(false)
           }}
@@ -96,12 +106,12 @@ const ExamForm = ({ editionId, handleChange, current, error, addExam }) => {
                 component={DatePicker}
               />
               </Grid>
-              <InputField
-                  type="text"
-                  name="logo"
-                  label="Logo"
-                  placeholder="Adicione a logo da edição"
-                  />
+              {/* <InputField
+                type="text"
+                name="logo"
+                label="Logo"
+                placeholder="Adicione a logo da edição"
+              /> */}
               </Grid>
             </Grid>
             <div style={{
@@ -109,7 +119,7 @@ const ExamForm = ({ editionId, handleChange, current, error, addExam }) => {
               justifyContent: 'space-between',
               marginTop: '2.5rem'
             }}>
-              <Button color='primary' variant='contained' type="submit">Criar Prova</Button>
+              <Button color='primary' variant='contained' type="submit">{isEdit ? 'Editar' : 'Criar'} Prova</Button>
             </div>
           </Form>
         </Formik>

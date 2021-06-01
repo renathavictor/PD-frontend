@@ -16,20 +16,20 @@ const questionReducer = (state, action) => {
     case GET_QUESTIONS:
       return {
         ...state,
-        exams: action.payload,
+        questions: action.payload,
         loading: false
       }
     case ADD_QUESTION:
       return {
         ...state,
         current: action.payload,
-        // exams: [action.payload, ...state.exams],
+        // questions: [...state.questions, action.payload],
         loading: false
       }
     case UPDATE_QUESTION:
       return {
         ...state,
-        exams: state.exams.map(exam =>
+        questions: state.questions.map(exam =>
           exam.id === action.payload.id ? action.payload : exam
         ),
         loading: false
@@ -37,7 +37,7 @@ const questionReducer = (state, action) => {
     case DELETE_QUESTION:
       return {
         ...state,
-        exams: state.exams.filter(
+        questions: state.questions.filter(
           exam => exam.id !== action.payload
         ),
         loading: false
@@ -45,7 +45,7 @@ const questionReducer = (state, action) => {
     case CLEAR_QUESTIONS:
       return {
         ...state,
-        exams: null,
+        questions: null,
         filtered: null,
         error: null,
         current: null
@@ -63,7 +63,7 @@ const questionReducer = (state, action) => {
     case FILTER_QUESTIONS:
       return {
         ...state,
-        filtered: state.exams.filter(exam => {
+        filtered: state.questions.filter(exam => {
           const regex = new RegExp(`${action.payload}`, 'gi')
           return exam.name.match(regex) || exam.email.match(regex)
         })

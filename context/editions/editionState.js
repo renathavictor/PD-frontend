@@ -41,7 +41,7 @@ const EditionState = props => {
     } catch (err) {
       dispatch({
         type: EDITION_ERROR,
-        payload: err.response.data
+        payload: err?.response.data
       })
     }
   }
@@ -57,7 +57,7 @@ const EditionState = props => {
     } catch (err) {
       dispatch({
         type: EDITION_ERROR,
-        payload: err.response.data
+        payload: err?.response.data
       })
     }
   }
@@ -88,7 +88,7 @@ const EditionState = props => {
     } catch (err) {
       dispatch({
         type: EDITION_ERROR,
-        payload: err.response.data
+        payload: err?.response.data
       })
     }
   }
@@ -106,7 +106,7 @@ const EditionState = props => {
     } catch (err) {
       dispatch({
         type: EDITION_ERROR,
-        payload: err.response.data
+        payload: err?.response.data
       })
     }
   }

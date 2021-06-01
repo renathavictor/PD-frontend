@@ -1,5 +1,6 @@
 import {
   GET_EXAMS,
+  GET_EXAM,
   ADD_EXAM,
   DELETE_EXAM,
   SET_CURRENT,
@@ -19,6 +20,12 @@ const examReducer = (state, action) => {
         exams: action.payload,
         loading: false
       }
+    case GET_EXAM:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false
+      }
     case ADD_EXAM:
       return {
         ...state,
@@ -29,9 +36,7 @@ const examReducer = (state, action) => {
     case UPDATE_EXAM:
       return {
         ...state,
-        exams: state.exams.map(exam =>
-          exam.id === action.payload.id ? action.payload : exam
-        ),
+        current: action.payload,
         loading: false
       }
     case DELETE_EXAM:

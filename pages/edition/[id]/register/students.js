@@ -33,7 +33,6 @@ const Students = ({ query }) => {
     loadRegister()
   }, [registers])
 
-  console.log(registers)
   return user?.user?.profile_id?.$oid !== PARTICIPANT_PROFILE_ID ? (
     <div>
       <h2>Estudantes</h2>

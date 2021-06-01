@@ -67,12 +67,6 @@ export default function EditionCard({
   return (
     <Card className={classes.root}>
       <CardHeader
-        // action={
-        //   // TODO - apenas para admin
-        //   <IconButton aria-label="settings" className={classes.button}>
-        //     <DeleteOutlineIcon onClick={() => console.log('editar ou deletar')} />
-        //   </IconButton>
-        // }
         title={title}
       />
       <CardMedia
@@ -85,18 +79,10 @@ export default function EditionCard({
           {description}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          {/* {moment.utc(startDate).format()} */}
           {moment(startDate).format('DD/MM/YYYY')}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {/* TODO
-          deixar apenas para o participante
-          Um ou outro de acordo com o status
-        */}
-        { /* <IconButton aria-label="inscriptions" className={classes.button}>
-          Inscrever-se
-        </IconButton> */}
         <IconButton aria-label="acess" className={classes.button}>
           <Link href={`/edition/${id}`}><a>Acessar</a></Link>
         </IconButton>

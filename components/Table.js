@@ -47,7 +47,6 @@ function Row (props) {
     const loadData = async () => {
       await api.get(`${fetchData}/${row.user_id.$oid}`)
         .then(response => {
-          console.log('response ', response)
           setUser(response.data)
         })
         .catch(err => console.error(err))

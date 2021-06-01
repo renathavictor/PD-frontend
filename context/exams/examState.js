@@ -6,6 +6,7 @@ import examReducer from './examReducer'
 
 import {
   GET_EXAMS,
+  GET_EXAM,
   ADD_EXAM,
   DELETE_EXAM,
   SET_CURRENT,
@@ -24,7 +25,8 @@ const ExamState = props => {
     exams: null,
     current: null,
     filtered: null,
-    error: null
+    error: null,
+    loading: true
   }
 
   const [state, dispatch] = useReducer(examReducer, initialState)
@@ -34,6 +36,21 @@ const ExamState = props => {
       const res = await api.get(URL_ROUTE)
       dispatch({
         type: GET_EXAMS,
+        payload: res.data
+      })
+    } catch (err) {
+      dispatch({
+        type: EXAM_ERROR,
+        payload: err.response.data
+      })
+    }
+  }
+
+  const getExam = async id => {
+    try {
+      const res = await api.get(`${URL_ROUTE}/${id}`)
+      dispatch({
+        type: GET_EXAM,
         payload: res.data
       })
     } catch (err) {
@@ -129,6 +146,7 @@ const ExamState = props => {
         filterExams,
         clearFilter,
         getExams,
+        getExam,
         clearExams
       }}
     >

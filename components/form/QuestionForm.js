@@ -10,9 +10,10 @@ import { Button } from '@material-ui/core';
 
 import InputField from '../input/InputField'
 import AlertContext from '../../context/alert/alertContext'
+import ExamContext from '../../context/questions/questionContext'
 import { Container } from '../styles/Form'
 import { messages, phoneMask, validateTelephone } from '../../utils/validations'
-import AutocompleteField from '../../components/input/AutocompleteField'
+import AutocompleteField from '../input/AutocompleteField'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,56 +37,61 @@ function getSteps() {
   return ['Criar prova', 'Adicionar Questões'];
 }
 
-const CreateQuestionForm = ({ editionId }) => {
+const QuestionForm = ({ editionId, currentExamId, query }) => {
   const alertContext = useContext(AlertContext)
+  const examContext = useContext(ExamContext)
   const { setAlert } = alertContext
+  const { addQuestion, current, clearCurrent } = examContext
   const classes = useStyles();
-
   return (
-    <Container>
+    <Container
+      style={{
+        boxShadow: 'none',
+        background: 'none',
+        display: 'flex',
+        justifyContent: 'center'
+      }}
+    >
       <Formik
-            initialValues={{
-              title: '',
-              answer1: '',
-              answer2: '',
-              answer3: '',
-              answer4: '',
-              answer5: '',
-              right_answer: '',
-              proof_id: '',
-              edition_id: editionId, // pegar o id da edição
-           }}
-          validationSchema={Yup.object({
-            title: Yup.string()
-             .min(3, messages.minSize(3))
-             .required(messages.required),
-             answer1: Yup.string()
-              .min(3, messages.minSize(3))
-              .required(messages.required),
-            answer2: Yup.string()
-              .min(3, messages.minSize(3))
-              .required(messages.required),
-            answer3: Yup.string()
-              .min(3, messages.minSize(3))
-              .required(messages.required),
-            answer4: Yup.string()
-              .min(3, messages.minSize(3))
-              .required(messages.required),
-            answer5: Yup.string()
-              .min(3, messages.minSize(3))
-              .required(messages.required),
-            right_answer: Yup.string()
-              .min(3, messages.minSize(3))
-              .required(messages.required),
-            proof_id: Yup.string()
-              .min(3, messages.minSize(3))
-              .required(messages.required),
-          })}
-          onSubmit={(values, { setSubmitting }) => {
-            // redirecionar para tela da edição
-            setSubmitting(false)
-          }}
-          >
+        initialValues={{
+          title: '',
+          answer1: '',
+          answer2: '',
+          answer3: '',
+          answer4: '',
+          answer5: '',
+          right_answer: '',
+          proof_id: currentExamId,
+          // edition_id: editionId, // pegar o id da edição
+        }}
+        validationSchema={Yup.object({
+          title: Yup.string()
+            .min(3, messages.minSize(3))
+            .required(messages.required),
+            answer1: Yup.string()
+            .min(3, messages.minSize(3))
+            .required(messages.required),
+          answer2: Yup.string()
+            .min(3, messages.minSize(3))
+            .required(messages.required),
+          answer3: Yup.string()
+            .min(3, messages.minSize(3))
+            .required(messages.required),
+          answer4: Yup.string()
+            .min(3, messages.minSize(3))
+            .required(messages.required),
+          answer5: Yup.string()
+            .min(3, messages.minSize(3))
+            .required(messages.required),
+          right_answer: Yup.string()
+            .required(messages.required)
+        })}
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          await addQuestion({ ...values })
+          setSubmitting(false)
+          resetForm()
+        }}
+        >
           <Form>
             <Grid container spacing={3}>
               <Grid item xs={12}>
@@ -142,11 +148,11 @@ const CreateQuestionForm = ({ editionId }) => {
                   name='right_answer'
                   label='Resposta Correta'
                   options={[
-                    { value: 'answer1', label: 'Resposta 1' },
-                    { value: 'answer2', label: 'Resposta 2' },
-                    { value: 'answer3 ', label: 'Resposta 3' },
-                    { value: 'answer4 ', label: 'Resposta 4' },
-                    { value: 'answer5 ', label: 'Resposta 5' },
+                    { value: 'answer1', label: 'Opção 1' },
+                    { value: 'answer2', label: 'Opção 2' },
+                    { value: 'answer3 ', label: 'Opção 3' },
+                    { value: 'answer4 ', label: 'Opção 4' },
+                    { value: 'answer5 ', label: 'Opção 5' },
                   ]}
                   component={AutocompleteField}
                 />
@@ -166,4 +172,4 @@ const CreateQuestionForm = ({ editionId }) => {
   )
 }
 
-export default CreateQuestionForm
+export default QuestionForm

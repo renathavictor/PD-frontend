@@ -23,6 +23,7 @@ export const EDITION_ERROR = 'EDITION_ERROR'
 
 // Exams
 export const GET_EXAMS = 'GET_EXAMS'
+export const GET_EXAM = 'GET_EXAM'
 export const ADD_EXAM = 'ADD_EXAM'
 export const DELETE_EXAM = 'DELETE_EXAM'
 export const UPDATE_EXAM = 'UPDATE_EXAM'
@@ -32,6 +33,7 @@ export const EXAM_ERROR = 'EXAM_ERROR'
 
 // Questions
 export const GET_QUESTIONS = 'GET_QUESTIONS'
+export const GET_QUESTION = 'GET_QUESTION'
 export const ADD_QUESTION = 'ADD_QUESTION'
 export const DELETE_QUESTION = 'DELETE_QUESTION'
 export const UPDATE_QUESTION = 'UPDATE_QUESTION'

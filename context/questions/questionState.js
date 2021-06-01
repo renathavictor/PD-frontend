@@ -13,16 +13,18 @@ import {
   UPDATE_QUESTION,
   FILTER_QUESTIONS,
   CLEAR_QUESTIONS,
-  CLEAR_FILTER
+  CLEAR_FILTER,
+  QUESTION_ERROR
 } from '../types'
 
-const URL_ROUTE = '/proofs'
+const URL_ROUTE = '/questions'
 
 const QuestionState = props => {
   const initialState = {
     question: null,
     current: null,
     filtered: null,
+    loading: true,
     error: null
   }
 

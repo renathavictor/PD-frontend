@@ -32,11 +32,11 @@ const EditionForm = (props) => {
     clearErros()
   }
   const isEdit = !!props?.current
-  const startDate = props?.current?.start_date_time //? moment(props.current.start_date_time).format('DD-MM-YYYY') : ''
-  const endDate = props?.current?.end_date_time //? moment(props.current.end_date_time).format('DD-MM-YYYY') : ''
+  const startDate = props?.current?.start_date_time ? moment(props.current.start_date_time).format('DD-MM-YYYY') : ''
+  const endDate = props?.current?.end_date_time ? moment(props.current.end_date_time).format('DD-MM-YYYY') : ''
 
   return (
-    <Container>
+    <Container style={{ justifyContent: 'center' , paddingBottom: '2rem'}}>
       <Formik
         initialValues={{
           title: props?.current?.title || '',

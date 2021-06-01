@@ -1,6 +1,6 @@
 import React from "react"
 import { useField } from 'formik'
-import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from "@material-ui/pickers"
+import { MuiPickersUtilsProvider, DateTimePicker } from "@material-ui/pickers"
 import moment from "moment";
 import MomentUtils from '@date-io/moment'
 import "moment/locale/pt-br";
@@ -21,14 +21,15 @@ const useStyles = makeStyles((theme) => ({
 const DatePicker = ({ field, form, ...other }) => {
   const classes = useStyles()
   const [meta] = useField({ ...other, name: field.name})
+  const touch = () => form.setFieldTouched(field.name, true)
   const currentError = form.errors[field.name]
-
   return (
     <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale='pt-br'>
-      <KeyboardDateTimePicker
+      <DateTimePicker
         className={classes.root}
         ampm={false}
         clearable
+        autoOk
         disablePast
         inputVariant="outlined"
         variant="inline"
@@ -38,6 +39,9 @@ const DatePicker = ({ field, form, ...other }) => {
         format="DD/MM/yyyy hh:mm:ss"
         helperText={currentError}
         error={Boolean(currentError)}
+        okLabel='OK'
+        cancelLabel='cancel'
+        todayLabel='hoje'
         // onError={error => {
         //   // handle as a side effect
         //   if (error !== currentError) {
@@ -45,7 +49,10 @@ const DatePicker = ({ field, form, ...other }) => {
         //   }
         // }}
         // if you are using custom validation schema you probably want to pass `true` as third argument
-        onChange={date => form.setFieldValue(field.name, date, false)}
+        onChange={date => {
+          form.setFieldValue(field.name, date, false)
+          touch()
+        }}
         {...other}
       />
       {meta.touched && meta.error ? (

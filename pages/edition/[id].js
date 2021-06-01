@@ -15,9 +15,11 @@ import PeopleIcon from '@material-ui/icons/People'
 import AssessmentIcon from '@material-ui/icons/Assessment'
 import Chip from '@material-ui/core/Chip'
 import EventIcon from '@material-ui/icons/Event'
+import EditIcon from '@material-ui/icons/Edit'
 
 import EditionContext from '../../context/editions/editionContext'
 import AuthContext from '../../context/auth/authContext'
+import ExamContext from '../../context/exams/examContext'
 
 import EditionForm from '../../components/form/EditionForm'
 import AutocompleteField from '../../components/input/AutocompleteField'
@@ -65,6 +67,7 @@ const Editions = ({ query }) => {
   const classes = useStyles()
   const authContext = useContext(AuthContext) || {}
   const editionContext = useContext(EditionContext)
+  const examContext = useContext(ExamContext)
   const { getEdition, loading, current, deleteEdition, error, clearCurrent } = editionContext
   const { user, isAuthenticated } = authContext
 
@@ -73,33 +76,35 @@ const Editions = ({ query }) => {
   useEffect(() => {
     const getCurrent = async () => {
       await getEdition(id)
+      // await examContext.clearCurrent()
     }
     getCurrent()
   }, [])
 
-  useEffect(() => {
-    // get
-  }, [current])
-
   if (!current && !loading) return <h1>Edição não encontrada</h1>
-  console.log('current ', current)
+
   return user?.user?.profile_id?.$oid !== PARTICIPANT_PROFILE_ID ? (
     <Container maxWidth='md'>
       <EditionHeaderStyles>
         <h1>{current.title}</h1>
-        <Button color='secondary' onClick={async () => {
-          await deleteEdition(current._id.$oid)
-          Router.push('/')
+        <div>
+          <Button color='primary' onClick={() => Router.push(`/edition/${current._id.$oid}/edit`)}>
+            <EditIcon />
+          </Button>
+          <Button color='secondary' onClick={async () => {
+            await deleteEdition(current._id.$oid)
+            Router.push('/')
           }}
-        >
-          <DeleteOutlineIcon />
-        </Button>
+          >
+            <DeleteOutlineIcon />
+          </Button>
+        </div>
         {/* {current.proof_ids.length === 0 && <Link href={`/edition/${current._id.$oid}/exam`}><Button color='primary' variant='contained'>+ Adicionar Prova</Button></Link>} */}
       </EditionHeaderStyles>
       <Card style={{ marginTop: '2rem', padding: '1rem 2rem 5rem' }}>
         <p>{current.description}</p>
-        <p>Data de inicio: <Chip icon={<EventIcon />} color="primary" label={moment(current.start_date_time).format('DD/MM/YYYY HH:mm')} /></p>
-        <p>Data de fim: <Chip icon={<EventIcon />} color="primary" label={moment(current.end_date_time).format('DD/MM/YYYY HH:mm')} /></p>
+        <div style={{ marginBottom: '1rem' }}>Data de inicio: <Chip icon={<EventIcon />} color="primary" label={moment(current.start_date_time).format('DD/MM/YYYY HH:mm')} /></div>
+        <div style={{ marginBottom: '1rem' }}>Data de fim: <Chip icon={<EventIcon />} color="primary" label={moment(current.end_date_time).format('DD/MM/YYYY HH:mm')} /></div>
         <hr />
       <Box className={classes.root}>
         <Link href={`/edition/${current._id.$oid}/register`}>
@@ -114,7 +119,7 @@ const Editions = ({ query }) => {
             <PeopleIcon />
           </Paper>
         </Link>
-        <Link href={`/edition/${current._id.$oid}/exam`}>
+        <Link href={`/edition/${current._id.$oid}/exam/${current.proof_ids?.length > 0 ? current.proof_ids[0].$oid : 'new'}`}>
           <Paper className={classes.paper} elevation={1}>
             Prova
             <AssessmentIcon />
@@ -147,10 +152,18 @@ const Editions = ({ query }) => {
       <EditionHeaderStyles>
         <h1>{current.title}</h1>
       </EditionHeaderStyles>
-      <Card style={{ marginTop: '2rem', padding: '10px 2rem' }}>
+      <Card style={{ marginTop: '2rem', padding: '1rem 2rem' }}>
         <p>{current.description}</p>
-        <p>Data de inicio: <Chip icon={<EventIcon />} color="primary" label={moment(current.start_date_time).format('DD/MM/YYYY HH:mm')} /></p>
-        <p>Data de fim: <Chip icon={<EventIcon />} color="primary" label={moment(current.end_date_time).format('DD/MM/YYYY HH:mm')} /></p>
+        <div style={{ marginBottom: '1rem' }}>Data de inicio: <Chip icon={<EventIcon />} color="primary" label={moment(current.start_date_time).format('DD/MM/YYYY HH:mm')} /></div>
+        <div style={{ marginBottom: '1rem' }}>Data de fim: <Chip icon={<EventIcon />} color="primary" label={moment(current.end_date_time).format('DD/MM/YYYY HH:mm')} /></div>
+        <Button style={{ margin: '2rem auto' }} color='primary' variant='contained' onClick={() => {
+          // talves enviar algo para o backend
+          Router.push(`/edition/${current._id.$oid}/exam/${current.proof_ids[0].$oid}`)
+          }}
+          disabled={moment().isAfter(current.end_date_time)}
+        >
+          Acessar a prova
+        </Button>
       </Card>
     </>
   )
