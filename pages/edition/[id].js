@@ -70,6 +70,7 @@ const Editions = ({ query }) => {
   const examContext = useContext(ExamContext)
   const { getEdition, loading, current, deleteEdition, error, clearCurrent } = editionContext
   const { user, isAuthenticated } = authContext
+  let userEditionRegister = null
 
   if (loading) return <CircularProgress />
 
@@ -80,7 +81,20 @@ const Editions = ({ query }) => {
     getCurrent()
   }, [])
 
+  useEffect(() => {
+    if (user?.user?.profile_id?.$oid === PARTICIPANT_PROFILE_ID) {
+      const userEditionRegisterFilter = current?.registry_ids.map(edition => {
+        const filter = user.user.registry_ids && user.user.registry_ids[user.user.registry_ids.findIndex(x => {
+          return x.$oid === edition.$oid
+        })]
+        return filter && filter
+      })
+      userEditionRegister = userEditionRegisterFilter?.filter(x => x !== undefined)[0]
+    }
+  }, [current])
+
   if (!current && !loading) return <h1>Edição não encontrada</h1>
+  console.log('user ==> ', user, 'curretn edition ', current)
 
   return user?.user?.profile_id?.$oid !== PARTICIPANT_PROFILE_ID ? (
     <Container maxWidth='md'>
@@ -137,8 +151,10 @@ const Editions = ({ query }) => {
         <div style={{ marginBottom: '1rem' }}>Data de inicio: <Chip icon={<EventIcon />} color="primary" label={moment(current.start_date_time).format('DD/MM/YYYY HH:mm')} /></div>
         <div style={{ marginBottom: '1rem' }}>Data de fim: <Chip icon={<EventIcon />} color="primary" label={moment(current.end_date_time).format('DD/MM/YYYY HH:mm')} /></div>
         <Button style={{ margin: '2rem auto' }} color='primary' variant='contained' onClick={() => {
-          // talves enviar algo para o backend
-          Router.push(`/edition/${current._id.$oid}/exam/${current.proof_ids[0].$oid}`)
+          Router.push({
+            pathname: `/edition/${current._id.$oid}/exam/${current.proof_ids[0].$oid}`,
+            query: { registerId: userEditionRegister.$oid }
+          })
           }}
           disabled={moment().isAfter(current.end_date_time)}
         >

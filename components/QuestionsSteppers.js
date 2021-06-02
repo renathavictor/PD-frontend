@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import Router from 'next/router'
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Paper from '@material-ui/core/Paper';
@@ -15,6 +17,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Modal from '@material-ui/core/Modal';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import api from '../utils/api';
+import AlertContext from '../context/alert/alertContext'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -55,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function QuestionsSteppers({ steps }) {
+export default function QuestionsSteppers({ steps, userRegisterId }) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -63,6 +67,8 @@ export default function QuestionsSteppers({ steps }) {
   const [values, setValues] = React.useState({});
   const [open, setOpen] = React.useState(false);
   const [modalStyle] = React.useState(getModalStyle);
+  const alertContext = useContext(AlertContext)
+  const { setAlert } = alertContext
 
   const handleOpen = () => {
     setOpen(true);
@@ -92,6 +98,20 @@ export default function QuestionsSteppers({ steps }) {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  const sendAnswer = async () => {
+    await api.post(`/registries/salvaQuestoes/${userRegisterId}`, { ...values })
+      .then(response => {
+        console.log('response ', response)
+        handleClose()
+        setAlert('Prova finalizada!', 'success')
+        Router.push('/')
+      })
+      .catch(err => {
+        console.error(err)
+        setAlert(`Erro ao finalizar a prova: ${err.error}`, 'danger')
+      })
+  }
 
   return (
     <div className={classes.root}>
@@ -155,7 +175,7 @@ export default function QuestionsSteppers({ steps }) {
           style={{ justifyContent: 'flex-start' }}
           />
           )) : ''}
-          <Button size='medium' onClick={() => console.log('salvar as questões e redirecionar')}>
+          <Button size='medium' onClick={() => sendAnswer()}>
             Finalizar
           </Button>
         </div>

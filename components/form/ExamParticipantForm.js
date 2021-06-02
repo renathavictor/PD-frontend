@@ -8,7 +8,6 @@ import api from '../../utils/api'
 const ExamParticipantForm = ({ current }) => {
   const { query } = useRouter()
   const [questions, setQuestions] = useState([])
-
   useEffect(() => {
     const load = async () => {
       current && await loadQuestion(current._id.$oid)
@@ -19,12 +18,13 @@ const ExamParticipantForm = ({ current }) => {
     load()
   }, [])
 
-  const loadQuestion = async id => await api.get(`proofs/questoesPorProva/${id}`)
+  const loadQuestion = async id => await api.get(`/proofs/questoesPorProva/${id}`)
 
   return (
     <div>
       <QuestionsSteppers
         steps={questions}
+        userRegisterId={query.registerId}
       />
     </div>
   )

@@ -28,7 +28,7 @@ const RegisterState = props => {
     } catch (err) {
       dispatch({
         type: types.REGISTER_ERROR,
-        payload: err.response.data
+        payload: err?.response?.data
       })
     }
   }
@@ -43,7 +43,7 @@ const RegisterState = props => {
     } catch (error) {
       dispatch({
         type: types.REGISTER_ERROR,
-        payload: error?.response.data
+        payload: error?.response?.data
       })
     }
   }
@@ -51,7 +51,6 @@ const RegisterState = props => {
   const addRegister = async register => {
     try {
       const res = await api.post(URL_ROUTE, register)
-
       dispatch({
         type: types.ADD_REGISTER,
         payload: res.data
@@ -59,7 +58,7 @@ const RegisterState = props => {
     } catch (err) {
       dispatch({
         type: types.REGISTER_ERROR,
-        payload: err.response.data
+        payload: err?.response?.data
       })
     }
   }
@@ -75,7 +74,7 @@ const RegisterState = props => {
     } catch (err) {
       dispatch({
         type: types.REGISTER_ERROR,
-        payload: err.response.data
+        payload: err?.response?.data
       })
     }
   }
@@ -93,7 +92,7 @@ const RegisterState = props => {
     } catch (err) {
       dispatch({
         type: types.REGISTER_ERROR,
-        payload: err.response.data
+        payload: err?.response?.data
       })
     }
   }

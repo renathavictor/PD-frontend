@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: process.env.MAIL_HOST,
+  baseURL: process.env.NEXT_PUBLIC_MAIL_HOST,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json"

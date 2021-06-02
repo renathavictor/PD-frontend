@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup'
@@ -19,6 +19,7 @@ import RegisterContext from '../../context/register/registerContext'
 import { PARTICIPANT_PROFILE_ID } from '../../utils/constants'
 import api from '../../utils/api'
 import { parseDataToOption } from '../../utils/parses'
+import { notifyUser } from '../../utils/mail'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,8 @@ const RegisterForm = ({ editionId }) => {
   const alertContext = useContext(AlertContext) || {}
   const authContext = useContext(AuthContext) || {}
   const registerContext = useContext(RegisterContext) || {}
+  const { asPath } = useRouter()
+  const currentPath = `${process.env.NEXT_PUBLIC_PROJECT_ENDPOINT}${asPath.replace('/register', '')}`
 
   const { addRegister, error, clearRegisters } = registerContext
 
@@ -72,7 +75,7 @@ const RegisterForm = ({ editionId }) => {
     state: '',
     city: '',
     school: '',
-    edition_id: editionId, //pegar a edição do query
+    edition_id: editionId,
     user_id: 0
   }
 
@@ -92,7 +95,14 @@ const RegisterForm = ({ editionId }) => {
         })}
         onSubmit={async (values, { setSubmitting }) => {
           console.table(values)
+          const emailUser = users[users.findIndex(x => x.value === values.user_id)]
           await addRegister(values)
+          await notifyUser({
+            name: emailUser.label,
+            email: emailUser.label,
+            edition: 'da Olímpia digital',
+            link: currentPath
+          })
           setSubmitting(false)
           Router.push(`/edition/${editionId}/register/students`)
           clearRegisters()

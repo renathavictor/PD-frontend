@@ -58,7 +58,7 @@ const Header = () => (
   <StyledHeader>
     <div className='bar'>
       <Logo>
-        <Link href='/'><a>Title</a></Link>
+        <Link href='/'><a>Olímpia Digital</a></Link>
       </Logo>
       <Nav />
     </div>
