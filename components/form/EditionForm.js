@@ -5,6 +5,7 @@ import { Formik, Form, Field } from 'formik';
 import MaskedInput from '../input/MaskedInput';
 import * as Yup from 'yup'
 import moment from 'moment'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 import Grid from '@material-ui/core/Grid'
 
@@ -70,7 +71,7 @@ const EditionForm = (props) => {
         }}
       >
       <Form>
-        <h3>{!isEdit ? 'Nova Edição' : 'Editar Edição'}</h3>
+        <h3><ArrowBackIosIcon style={{ cursor: 'pointer' }} onClick={() => Router.back()} /> {!isEdit ? 'Nova Edição' : 'Editar Edição'}</h3>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <InputField

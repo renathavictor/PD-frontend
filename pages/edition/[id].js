@@ -16,6 +16,7 @@ import AssessmentIcon from '@material-ui/icons/Assessment'
 import Chip from '@material-ui/core/Chip'
 import EventIcon from '@material-ui/icons/Event'
 import EditIcon from '@material-ui/icons/Edit'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 import EditionContext from '../../context/editions/editionContext'
 import AuthContext from '../../context/auth/authContext'
@@ -94,12 +95,11 @@ const Editions = ({ query }) => {
   }, [current])
 
   if (!current && !loading) return <h1>Edição não encontrada</h1>
-  console.log('user ==> ', user, 'curretn edition ', current)
 
   return user?.user?.profile_id?.$oid !== PARTICIPANT_PROFILE_ID ? (
     <Container maxWidth='md'>
       <EditionHeaderStyles>
-        <h1>{current.title}</h1>
+        <h1><ArrowBackIosIcon style={{ cursor: 'pointer' }} onClick={() => Router.back()} /> {current.title}</h1>
         <div>
           <Button color='primary' onClick={() => Router.push(`/edition/${current._id.$oid}/edit`)}>
             <EditIcon />

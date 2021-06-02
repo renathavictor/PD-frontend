@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react'
 import Router from 'next/router'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 import RegisterContext from '../../../../context/register/registerContext'
 import AuthContext from '../../../../context/auth/authContext'
@@ -35,7 +36,7 @@ const Students = ({ query }) => {
 
   return user?.user?.profile_id?.$oid !== PARTICIPANT_PROFILE_ID ? (
     <div>
-      <h2>Estudantes</h2>
+      <h2><ArrowBackIosIcon style={{ cursor: 'pointer' }} onClick={() => Router.back()} />Estudantes</h2>
       <Table
         data={editionRegisters}
         request='users'

@@ -1,6 +1,7 @@
 import { CircularProgress } from '@material-ui/core'
 import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 import EditionForm from '../../components/form/EditionForm'
 import AuthContext from '../../context/auth/authContext'
@@ -22,7 +23,7 @@ const CreateEdition = () => {
 
   return user?.user?.profile_id?.$oid !== PARTICIPANT_PROFILE_ID ? (
     <>
-    <h3>Create new Edition</h3>
+    <h3><ArrowBackIosIcon style={{ cursor: 'pointer' }} onClick={() => Router.back()} />Criar Nova Edição</h3>
       <EditionForm />
     </>
   ) : <p>Não autorizado</p>

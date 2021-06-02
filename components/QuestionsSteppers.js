@@ -79,12 +79,8 @@ export default function QuestionsSteppers({ steps, userRegisterId }) {
   };
 
   const handleChange = (event) => {
-    console.log('event targfe value ', event.target.value)
-    console.log('event targfe ', event.target)
-
     setValues(prevState => {
       Object.keys(prevState).forEach(key => {
-        console.log('-------- key ', key)
         return { ...prevState, [`${key}`]: event.target.value }
       })
       return { ...prevState, [`${steps[activeStep]?._id.$oid}`]: event.target.value }
@@ -102,7 +98,6 @@ export default function QuestionsSteppers({ steps, userRegisterId }) {
   const sendAnswer = async () => {
     await api.post(`/registries/salvaQuestoes/${userRegisterId}`, { ...values })
       .then(response => {
-        console.log('response ', response)
         handleClose()
         setAlert('Prova finalizada!', 'success')
         Router.push('/')

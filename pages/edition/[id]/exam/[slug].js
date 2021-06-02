@@ -1,9 +1,11 @@
 import React, { useEffect, useContext } from 'react'
+import { useRouter } from 'next/router'
 
 import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import { CircularProgress } from '@material-ui/core'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 
 import ExamContext from '../../../../context/exams/examContext'
 import AuthContext from '../../../../context/auth/authContext'
@@ -42,6 +44,7 @@ const ExamPage = ({ query }) => {
   const examContext = useContext(ExamContext)
   const questionContext = useContext(QuestionContext)
   const editionContext = useContext(EditionContext)
+  const router = useRouter()
 
   const [value, setValue] = React.useState(0);
 
@@ -67,7 +70,7 @@ const ExamPage = ({ query }) => {
 
   return user?.user?.profile_id?.$oid !== PARTICIPANT_PROFILE_ID ? (
     <p>
-    <h1>{ editionContext.current?.title }</h1>
+    <h1><ArrowBackIosIcon style={{ cursor: 'pointer' }} onClick={() => router.back()} />{ editionContext.current?.title }</h1>
     <Paper square>
       <Tabs
         value={value}
