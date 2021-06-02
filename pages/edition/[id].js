@@ -76,7 +76,6 @@ const Editions = ({ query }) => {
   useEffect(() => {
     const getCurrent = async () => {
       await getEdition(id)
-      // await examContext.clearCurrent()
     }
     getCurrent()
   }, [])
@@ -127,25 +126,6 @@ const Editions = ({ query }) => {
         </Link>
       </Box>
       </Card>
-      {/* {current.proof_ids.length > 0 && (
-        <>
-        <h3>Prova</h3>
-        <Card style={{ marginTop: '2rem', padding: '10px 2rem' }}>
-          prova
-        </Card>
-      </>
-      )} */}
-      {/* <h3>Estudantes</h3>
-      <Grid container xs={12}>
-        <Grid item xs={6}>
-            <Card style={{ minHeight: '514px', margin: '2rem 0.5rem 0 0', padding: '10px 2rem' }}>
-              {current.registry_ids.map(registry => (
-                <p>{registry?.$oid}</p>
-              ))
-              }
-            </Card>
-          </Grid>
-      </Grid> */}
     </Container>
   ) : (
     <>

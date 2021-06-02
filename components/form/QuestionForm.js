@@ -10,7 +10,7 @@ import { Button } from '@material-ui/core';
 
 import InputField from '../input/InputField'
 import AlertContext from '../../context/alert/alertContext'
-import ExamContext from '../../context/questions/questionContext'
+import QuestionContext from '../../context/questions/questionContext'
 import { Container } from '../styles/Form'
 import { messages, phoneMask, validateTelephone } from '../../utils/validations'
 import AutocompleteField from '../input/AutocompleteField'
@@ -39,9 +39,9 @@ function getSteps() {
 
 const QuestionForm = ({ editionId, currentExamId, query }) => {
   const alertContext = useContext(AlertContext)
-  const examContext = useContext(ExamContext)
+  const questionContext = useContext(QuestionContext)
   const { setAlert } = alertContext
-  const { addQuestion, current, clearCurrent } = examContext
+  const { addQuestion, current, clearCurrent } = questionContext
   const classes = useStyles();
   return (
     <Container

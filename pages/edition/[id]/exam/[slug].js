@@ -77,7 +77,6 @@ const ExamPage = ({ query }) => {
         aria-label="disabled tabs example"
       >
         <Tab label="Prova" />
-        {/* <Tab label="Disabled" disabled /> */}
         <Tab label="Questões" />
       </Tabs>
       <TabPanel value={value} index={0} style={{ paddingBottom: '2rem' }}>
@@ -110,11 +109,14 @@ const ExamPage = ({ query }) => {
     </Paper>
   </p>
   ) : (
+    <>
+    <h1>{current.description}</h1>
     <Paper square>
       <ExamParticipantForm
         current={current}
       />
     </Paper>
+    </>
   )
 }
 

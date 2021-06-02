@@ -1,5 +1,6 @@
 import {
   GET_QUESTIONS,
+  GET_QUESTION_PARTICIPANT,
   ADD_QUESTION,
   DELETE_QUESTION,
   SET_CURRENT,
@@ -14,6 +15,12 @@ import {
 const questionReducer = (state, action) => {
   switch (action.type) {
     case GET_QUESTIONS:
+      return {
+        ...state,
+        questions: action.payload,
+        loading: false
+      }
+    case GET_QUESTION_PARTICIPANT:
       return {
         ...state,
         questions: action.payload,

@@ -21,7 +21,7 @@ const URL_ROUTE = '/questions'
 
 const QuestionState = props => {
   const initialState = {
-    question: null,
+    questions: null,
     current: null,
     filtered: null,
     loading: true,
@@ -40,10 +40,26 @@ const QuestionState = props => {
     } catch (err) {
       dispatch({
         type: QUESTION_ERROR,
-        payload: err.response.data
+        payload: err?.response?.data
       })
     }
   }
+
+  const getQuestionsParticipants = async id => {
+    try {
+      const res = await api.get(`proofs/questoesPorProva/${id}`)
+      dispatch({
+        type: GET_QUESTION_PARTICIPANT,
+        payload: res.data
+      })
+    } catch (err) {
+      dispatch({
+        type: QUESTION_ERROR,
+        payload: err?.response?.data
+      })
+    }
+  }
+
 
   const addQuestion = async qustion => {
     try {
@@ -56,7 +72,7 @@ const QuestionState = props => {
     } catch (err) {
       dispatch({
         type: QUESTION_ERROR,
-        payload: err.response.data
+        payload: err?.response?.data
       })
     }
   }
@@ -72,7 +88,7 @@ const QuestionState = props => {
     } catch (err) {
       dispatch({
         type: QUESTION_ERROR,
-        payload: err.response.data
+        payload: err?.response?.data
       })
     }
   }
@@ -90,7 +106,7 @@ const QuestionState = props => {
     } catch (err) {
       dispatch({
         type: QUESTION_ERROR,
-        payload: err.response.data
+        payload: err?.response?.data
       })
     }
   }
@@ -130,6 +146,7 @@ const QuestionState = props => {
         filterQuestions,
         clearFilter,
         getQuestions,
+        getQuestionsParticipants,
         clearQuestions
       }}
     >
