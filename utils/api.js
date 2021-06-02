@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const urls = {
   'development': 'http://localhost:3000',
-  'production': 'http://olimpiadaapi.herokuapp.com'
+  'production': 'https://olimpiadaapi.herokuapp.com'
 }
 
 const api = axios.create({
