@@ -49,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
       margin: 'auto',
       fontSize: '3rem'
     }
+  },
+  chip: {
+    marginLeft: '1rem',
+    padding: '0 10px'
   }
 }));
 
@@ -71,7 +75,7 @@ const Editions = ({ query }) => {
   const examContext = useContext(ExamContext)
   const { getEdition, loading, current, deleteEdition, error, clearCurrent } = editionContext
   const { user, isAuthenticated } = authContext
-  let userEditionRegister = null
+  const [userEditionRegister, setUserEditionRegister] = React.useState({})
 
   if (loading) return <CircularProgress />
 
@@ -90,11 +94,12 @@ const Editions = ({ query }) => {
         })]
         return filter && filter
       })
-      userEditionRegister = userEditionRegisterFilter?.filter(x => x !== undefined)[0]
+      setUserEditionRegister(userEditionRegisterFilter?.filter(x => x !== undefined)[0])
     }
+    current?.proof_ids[0]?.$oid && examContext.getExam(current.proof_ids[0].$oid)
   }, [current])
 
-  if (!current && !loading) return <h1>Edição não encontrada</h1>
+  if (!current && !loading) return ''
 
   return user?.user?.profile_id?.$oid !== PARTICIPANT_PROFILE_ID ? (
     <Container maxWidth='md'>
@@ -116,8 +121,8 @@ const Editions = ({ query }) => {
       </EditionHeaderStyles>
       <Card style={{ marginTop: '2rem', padding: '1rem 2rem 5rem' }}>
         <p>{current.description}</p>
-        <div style={{ marginBottom: '1rem' }}>Data de inicio: <Chip icon={<EventIcon />} color="primary" label={moment(current.start_date_time).format('DD/MM/YYYY HH:mm')} /></div>
-        <div style={{ marginBottom: '1rem' }}>Data de fim: <Chip icon={<EventIcon />} color="primary" label={moment(current.end_date_time).format('DD/MM/YYYY HH:mm')} /></div>
+        <div style={{ marginBottom: '1rem' }}>Data de inicio: <Chip className={classes.chip} icon={<EventIcon />} color="primary" label={moment(current.start_date_time).format('DD/MM/YYYY HH:mm')} /></div>
+        <div style={{ marginBottom: '1rem' }}>Data de fim: <Chip className={classes.chip} icon={<EventIcon />} color="primary" label={moment(current.end_date_time).format('DD/MM/YYYY HH:mm')} /></div>
         <hr />
       <Box className={classes.root}>
         <Link href={`/edition/${current._id.$oid}/register`}>
@@ -144,22 +149,28 @@ const Editions = ({ query }) => {
   ) : (
     <>
       <EditionHeaderStyles>
-        <h1>{current.title}</h1>
+        <h1><ArrowBackIosIcon style={{ cursor: 'pointer' }} onClick={() => Router.back()} />{current.title}</h1>
       </EditionHeaderStyles>
       <Card style={{ marginTop: '2rem', padding: '1rem 2rem' }}>
         <p>{current.description}</p>
-        <div style={{ marginBottom: '1rem' }}>Data de inicio: <Chip icon={<EventIcon />} color="primary" label={moment(current.start_date_time).format('DD/MM/YYYY HH:mm')} /></div>
-        <div style={{ marginBottom: '1rem' }}>Data de fim: <Chip icon={<EventIcon />} color="primary" label={moment(current.end_date_time).format('DD/MM/YYYY HH:mm')} /></div>
-        <Button style={{ margin: '2rem auto' }} color='primary' variant='contained' onClick={() => {
+        <div style={{ marginBottom: '1rem' }}>Data de inicio: <Chip className={classes.chip} icon={<EventIcon />} color="primary" label={moment(current.start_date_time).format('DD/MM/YYYY HH:mm')} /></div>
+        <div style={{ marginBottom: '1rem' }}>Data de fim: <Chip className={classes.chip} icon={<EventIcon />} color="secondary" label={moment(current.end_date_time).format('DD/MM/YYYY HH:mm')} /></div>
+        <hr style={{ marginTop: '1rem' }} />
+        {current.proof_ids[0].$oid && examContext.current && userEditionRegister && <>
+          <h3>Prova</h3>
+          <div style={{ marginBottom: '1rem' }}>Data de inicio: <Chip className={classes.chip} icon={<EventIcon />} color="primary" label={moment(examContext.current.start_date_time).format('DD/MM/YYYY HH:mm')} /></div>
+          <div style={{ marginBottom: '1rem' }}>Data de fim: <Chip className={classes.chip} icon={<EventIcon />} color="secondary" label={moment(examContext.current.end_date_time).format('DD/MM/YYYY HH:mm')} /></div>
+         <Button style={{ margin: '2rem auto' }} color='primary' variant='contained' onClick={() => {
           Router.push({
             pathname: `/edition/${current._id.$oid}/exam/${current.proof_ids[0].$oid}`,
-            query: { registerId: userEditionRegister.$oid }
+            query: { registerId: userEditionRegister?.$oid }
           })
           }}
-          disabled={moment().isAfter(current.end_date_time)}
+          disabled={moment().isAfter(examContext.current.end_date_time)}
         >
           Acessar a prova
         </Button>
+        </>}
       </Card>
     </>
   )

@@ -66,7 +66,7 @@ export const Container = styled.div`
   }
   @media(max-width: 790px) {
     padding: 0.2rem;
-    max-width: 40vw;
+    /* max-width: 40vw; */
     fieldset {
       margin: 0.5;
     }

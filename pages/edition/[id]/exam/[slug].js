@@ -66,7 +66,7 @@ const ExamPage = ({ query }) => {
 
   if (loading) return <CircularProgress />
 
-  if (!current) return <p>Não encontrado</p>
+  if (!current) return ''
 
   return user?.user?.profile_id?.$oid !== PARTICIPANT_PROFILE_ID ? (
     <p>

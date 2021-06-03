@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import Router from 'next/router'
+import Router, { useRouter }  from 'next/router'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 export default function QuestionsSteppers({ steps, userRegisterId }) {
   const classes = useStyles();
   const theme = useTheme();
+  const { query } = useRouter()
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = steps?.length;
   const [values, setValues] = React.useState({});
@@ -96,6 +97,9 @@ export default function QuestionsSteppers({ steps, userRegisterId }) {
   };
 
   const sendAnswer = async () => {
+    Object.keys(values).forEach(key => {
+      values[key] = values[key].replace(/\[(.*)/g, '')
+    })
     await api.post(`/registries/salvaQuestoes/${userRegisterId}`, { ...values })
       .then(response => {
         handleClose()
@@ -106,6 +110,13 @@ export default function QuestionsSteppers({ steps, userRegisterId }) {
         console.error(err)
         setAlert(`Erro ao finalizar a prova: ${err.error}`, 'danger')
       })
+  }
+
+
+  const transformInValues = value => {
+    const removeIndex = value.replace(/\[(.*)/g, '')
+    const responseNumber = removeIndex.replace('answer', '')
+    return responseNumber
   }
 
   return (
@@ -120,12 +131,12 @@ export default function QuestionsSteppers({ steps, userRegisterId }) {
         <Grid item xs={6}>
           <h3>Alternativas</h3>
           <FormControl component="fieldset">
-          <RadioGroup aria-label="answer" name={`answer[${activeStep}]`} value={steps[activeStep]?._id.$oid} onChange={handleChange}>
-            <FormControlLabel value={steps[activeStep]?.answer1|| values[`${activeStep+1}`]} control={<Radio />} label={steps[activeStep]?.answer1} />
-            <FormControlLabel value={steps[activeStep]?.answer2|| values[`${activeStep+1}`]} control={<Radio />} label={steps[activeStep]?.answer2} />
-            <FormControlLabel value={steps[activeStep]?.answer3|| values[`${activeStep+1}`]} control={<Radio />} label={steps[activeStep]?.answer3} />
-            <FormControlLabel value={steps[activeStep]?.answer4|| values[`${activeStep+1}`]} control={<Radio />} label={steps[activeStep]?.answer4} />
-            <FormControlLabel value={steps[activeStep]?.answer5|| values[`${activeStep+1}`]} control={<Radio />} label={steps[activeStep]?.answer5} />
+          <RadioGroup aria-label="answer" name={`answer[${activeStep}]`} value={`${values[steps[activeStep]?._id.$oid]}`} onChange={handleChange}>
+            <FormControlLabel value={`answer1[${activeStep}]`} control={<Radio />} label={steps[activeStep]?.answer1} />
+            <FormControlLabel value={`answer2[${activeStep}]`} control={<Radio />} label={steps[activeStep]?.answer2} />
+            <FormControlLabel value={`answer3[${activeStep}]`} control={<Radio />} label={steps[activeStep]?.answer3} />
+            <FormControlLabel value={`answer4[${activeStep}]`} control={<Radio />} label={steps[activeStep]?.answer4} />
+            <FormControlLabel value={`answer5[${activeStep}]`} control={<Radio />} label={steps[activeStep]?.answer5} />
           </RadioGroup>
         </FormControl>
         </Grid>
@@ -165,7 +176,7 @@ export default function QuestionsSteppers({ steps, userRegisterId }) {
           <Chip
           key={step._id.$oid}
           avatar={<Avatar>{index+1}</Avatar>}
-          label={values.hasOwnProperty(step._id.$oid) ? values[step._id.$oid] : 'Não respondida'}
+          label={values.hasOwnProperty(step._id.$oid) ? transformInValues(values[step._id.$oid]) : 'Não respondida'}
           variant="outlined"
           style={{ justifyContent: 'flex-start' }}
           />
