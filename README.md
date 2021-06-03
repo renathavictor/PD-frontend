@@ -22,3 +22,6 @@
 ### Run tests
 
 > npm run test
+
+### Api de envio de email
+[Github](https://github.com/renathavictor/registration-email)
